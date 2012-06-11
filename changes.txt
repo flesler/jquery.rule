@@ -1,0 +1,39 @@
+1.0.1
+[Fix]
+- Small fix for Opera 9.55. The <style> created demanded a closing slash.
+- Fixed the exclusion of $.rule's sheet in $.rule.sheets(). Thanks to Adrien Gibrat for noticing.
+- Literal rules were split by ','. That would break comma-separated selectors. Reported by Adrien Gibrat.
+  Note that IE doesn't support comma-separated selectors in the addRule method. This could be worked around but would
+  cause different results among browsers, so just now that it fails in IE and it should not be used.
+[Optimization]
+- Added a cleanup of the local storage on window.unload
+[Docs]
+- Added some notes to the source file (jquery.rule.js).
+
+1.0
+- Added semicolon to the start, for safe file concatenation
+- Minor changes for perfomance
+- Saved $.rule in a variable to make compressed code much shorter.
+- Replaced the 'x:y' for IE when creating empty rules for ';'.
+- Made many changes tp $.rule.fn.filter:
+   * The filtering function used to get element & index as arguments instead of element as 'this' and index as 1st argument.
+   * String filters are no longer turned into regex, now they are compared (case insensitive) to each (splitted by comma) selector.
+- $.data and $.removeData have been extended ( hacked :) ). Instead of the element(rule), they get an empty hash, stored in $.rule.cache.
+- The changes in $.data allow cross browser animations. They need some aggressive testing.
+- Added show/hide/toggle and slide functions to $.rule.fn.
+- Improved the hack to $.curCSS, it returns some default values in case none is set, for animations. It needs some more work.
+
+0.9.2
+- Added queue,dequeue,animate and stop to $.rule.fn (non-IE)
+- Hacked $.curCSS to make the animations work.
+- remove() works in Opera 9 and Safari Win!
+  - Opera needed 'alternate' in the rel of stylesheet
+  - Safari wanted the sheet to be disabled, not the node.
+- $.rule.fn.filter now supports a regex as filter.
+
+0.9
+- Made the code work faster.
+- Extended $.fn with ownerNode,sheet,cssRules and cssText.
+- Added text and outerText to $.rule and $.rule.fn.
+- Made the example nicer.
+- Removed $.fn.collect.

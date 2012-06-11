@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<title>jQuery.Rule</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery.rule.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<style type="text/css">
+		p{ color:blue; }
+		
+		span{ color:#C93; }
+		
+		#content li{ margin-top:15px; }
+		
+		#queries{ background-color:#CCC; }
+		
+		a{ font-weight:bolder; }		
+		
+		/* rules using asterisk don't work well in IE */
+		
+		body{ 
+			font-family: Times New Roman, serif, Arial;
+			line-height:19px;
+		}	
+		
+		h3{  }
+	</style>
+	<script type="text/javascript">
+		jQuery(function( $ ){
+			$('#queries li').click(function(){
+				execute( $(this).text() );
+			});
+			$('input:button').click(function(){
+				execute( $(this).prev().children().val() );
+			});
+			
+			/* these 2 functions are just to show what's happening, no real life use for them */
+			function update( t, txt ){
+				$(t).html( txt.replace(/;\s*(?=[\w-])/g,';\n\t').replace(/\n/g,'<br />').replace(/\t/g,'&nbsp;&nbsp;&nbsp;') );
+			};
+			function execute( code ){
+				if( !code ) return;
+				try{
+					eval(code);
+					setTimeout(function(){
+						update('#link_text strong', $('link').cssText() );
+						update('#style_text strong', $('style:eq(1)').cssText() );
+					},0);
+				}catch(e){
+					alert(e.message||e);
+				}
+			};
+			setTimeout(function(){
+				execute('window');
+			},500);
+		});
+	</script>
+</head>
+<body style="width:100%">
+	<a href="http://flesler.blogspot.com/2007/11/jqueryrule.html" target="_blank">Visit jQuery.Rule's Homepage</a>
+	<ul class="main">
+		<li id="queries" class="top">
+			<h3>Examples(click on them)</h3>
+			<ul>
+				<li>$.rule('#content ul{ border:1px solid green }').appendTo('style');</li>
+				<li>$.rule('#content ul','style').append('background:#FF9');</li>
+				<li>$.rule('#content ul','style').remove();</li>
+				<li>$.rule('p','style').css('color','red').append('font-size:17px');</li>
+				<li>$.rule('textarea{}').append('background:#FFC').appendTo('link');</li>
+				<li>$.rule('textarea','link').remove();</li>
+				<li>$.rule('span{font-size:30px;}').appendTo('link');</li>
+				<li>$.rule('span','link').remove();</li>				
+				<li>$.rule('button{}').appendTo('link').css('background','darkgreen');</li>
+				<li>$.rule('button','link').remove();</li>
+				<li>$.rule('a').animate({letterSpacing:20}).animate({letterSpacing:0});</li>
+				<li>$.rule('body').animate({lineHeight:0},500).animate({lineHeight:19},500);</li>
+				<li>$.rule('h3','style').fadeOut('slow').fadeIn('slow');</li>
+			</ul>
+			<br />
+			<label>Or type your own:<input style="width: 225px" type="text" /></label><input type="button" value="execute" />
+		</li>
+		<li id="content" class="top">
+			<h3>Content</h3>
+			<ul>
+				<li><p>This is a paragraph</p></li>
+				<li><span>This is a span</span></li>
+				<li><span>This is yet another span</span></li>
+				<li><textarea>I'm a textarea</textarea></li>
+				<li><button>Button</button>&nbsp;<button>Button</button></li>
+				<li><p>Guess what..  I'm also a paragraph</p></li>
+			</ul>
+		</li>
+		<li id="style_text" class="bottom">
+			<h3>Style</h3>
+			<strong></strong>
+		</li>
+		<li id="link_text" class="bottom">
+			<h3>Link</h3>
+			<strong></strong>
+		</li>
+	</ul>	
+</body>
+</html>
