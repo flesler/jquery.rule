@@ -1,0 +1,13 @@
+{
+  "name": "jquery.rule",
+  "version": "1.0.2",
+  "main": "jquery.rule.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.2"
+  }
+}
