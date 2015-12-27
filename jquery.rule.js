@@ -120,7 +120,7 @@
 			});
 		},
 		parent:function( r ){//CSS rules in IE don't have parentStyleSheet attribute
-			if( typeof r == 'string' || !$.browser.msie )//if it's a string, just return undefined.
+			if( typeof r == 'string' || r.parentStyleSheet !== undefined )//if it's a string, just return undefined.
 				return r.parentStyleSheet;
 
 			var par;
