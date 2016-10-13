@@ -206,6 +206,9 @@
 	},function( m, a ){
 		var many = a == rules;//the rules need some more processing
 		$.fn[m] = function(){
+			return this.map(function(){
+				return many ? $.makeArray(this[a]) : this[a];
+			});
 		};
 	});
 	
