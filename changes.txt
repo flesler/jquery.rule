@@ -1,3 +1,7 @@
+1.1.0
+[Fix]
+- Fix for FireFox "SecurityError: The operation is insecure." if an external CSS ref is present. Thanks for @dorival for the PR
+
 1.0.1
 [Fix]
 - Small fix for Opera 9.55. The <style> created demanded a closing slash.

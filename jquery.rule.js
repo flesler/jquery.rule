@@ -1,12 +1,12 @@
 /*!
  * jQuery.Rule - Css Rules manipulation, the jQuery way.
- * Copyright (c) 2007-2011 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
+ * Copyright (c) 2007 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
  * Dual licensed under MIT and GPL.
- * Date: 02/7/2011
+ * Date: 14/10/2016
  * Compatible with jQuery 1.2+
  *
  * @author Ariel Flesler
- * @version 1.0.2
+ * @version 1.1.0
  *
  * @id jQuery.rule
  * @param {Undefined|String|jQuery.Rule} The rules, can be a selector, or literal CSS rules. Many can be given, comma separated.
@@ -23,8 +23,8 @@
  *
  * @example var text = $.rule('#screen h2').add('h4').end().eq(4).text();
  */
-;(function( $ ){	
-	
+;(function( $ ){
+
    /**
 	* Notes
 	*	Some styles and animations might fail, please report it.
@@ -35,18 +35,18 @@
 	*	This plugin adds $.rule and also 4 methods to $.fn: ownerNode, sheet, cssRules and cssText
 	*	Note that rules are not directly inside nodes, you need to do: $('style').sheet().cssRules().
 	*/
-	
+
 	var storageNode = $('<style rel="alternate stylesheet" type="text/css" />').appendTo('head')[0],//we must append to get a stylesheet
 		sheet = storageNode.sheet ? 'sheet' : 'styleSheet',
 		storage = storageNode[sheet],//css rules must remain in a stylesheet for IE and FF
 		rules = storage.rules ? 'rules' : 'cssRules',
 		remove = storage.deleteRule ? 'deleteRule' : 'removeRule',
-		owner = storage.ownerNode ? 'ownerNode' : 'owningElement',		
+		owner = storage.ownerNode ? 'ownerNode' : 'owningElement',
 		reRule = /^([^{]+)\{([^}]*)\}/m,
-		reStyle = /([^:]+):([^;}]+)/;	
+		reStyle = /([^:]+):([^;}]+)/;
 
-	storage.disabled = true;//let's ignore your rules 
-	
+	storage.disabled = true;//let's ignore your rules
+
 	var $rule = $.rule = function( r, c ){
 		if(!(this instanceof $rule))
 			return new $rule( r, c );
@@ -63,7 +63,7 @@
 		}
 		return this;
 	};
-	
+
 	$.extend( $rule, {
 		sheets:function( c ){
 			var o = c;
@@ -93,13 +93,13 @@
 			var p;
 			if( !skip && (p = this.parent(r)) )//if this is an actual rule, and it's appended.
 				r = this.remove( r, p );
-				
-			var rule = this.rule( r );			
+
+			var rule = this.rule( r );
 			if( ss.addRule )
 				ss.addRule( rule[1], rule[2]||';' );//IE won't allow empty rules
 			else if( ss.insertRule )
 				ss.insertRule( rule[1] + '{'+ rule[2] +'}', ss[rules].length );
-			
+
 			return ss[rules][ ss[rules].length - 1 ];//return the added/parsed rule
 		},
 		remove:function( r, p ){
@@ -126,7 +126,7 @@
 			var par;
 			this.sheets().each(function(){
 				if( $.inArray(r, this[rules]) != -1 ){
-					par = this;	
+					par = this;
 					return false;
 				}
 			});
@@ -141,7 +141,7 @@
 			return !rule ? '' : rule.style.cssText.toLowerCase();
 		}
 	});
-	
+
 	$rule.fn = $rule.prototype = {
 		pushStack:function( rs, sh ){
 			var ret = $rule( rs, sh || this.sheets );
@@ -171,7 +171,7 @@
 			}));
 		},
 		add:function( rs, c ){
-			return this.pushStack( $.merge(this.get(), $rule(rs, c)) );	
+			return this.pushStack( $.merge(this.get(), $rule(rs, c)) );
 		},
 		is:function( s ){
 			return !!(s && this.filter( s ).length);
@@ -195,7 +195,7 @@
 				: this.each(function(){	$rule.text( this, txt ); });
 		},
 		outerText:function(){
-			return $rule.outerText(this[0]);	
+			return $rule.outerText(this[0]);
 		}
 	};
 	
