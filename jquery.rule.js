@@ -207,7 +207,24 @@
 		var many = a == rules;//the rules need some more processing
 		$.fn[m] = function(){
 			return this.map(function(){
-				return many ? $.makeArray(this[a]) : this[a];
+        var prop;
+        try {
+          // In Chrome, if stylesheet originates from a different domain,
+          // ss.cssRules simply won't exist. I believe the same is true for IE, but
+          // I haven't tested it.
+          //
+          // In Firefox, if stylesheet originates from a different domain, trying
+          // to access ss.cssRules will throw a SecurityError. Hence, we must use
+          // try/catch to detect this condition in Firefox.
+          prop = this[a];
+        } catch(e) {
+          // Rethrow exception if it's not a SecurityError. Note that SecurityError
+          // exception is specific to Firefox.
+          if(e.name !== 'SecurityError')
+            throw e;
+          prop = null;
+        }
+        return many ? $.makeArray(prop) : prop;
 			});
 		};
 	});
