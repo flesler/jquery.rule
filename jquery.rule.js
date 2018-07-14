@@ -1,12 +1,11 @@
 /*!
- * jQuery.Rule - Css Rules manipulation, the jQuery way.
+ * jQuery.Rule - CSS Rules manipulation, the jQuery way.
  * Copyright (c) 2007 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
  * Dual licensed under MIT and GPL.
- * Date: 14/10/2016
- * Compatible with jQuery 1.2+
+ * Date: 14/07/2018
  *
  * @author Ariel Flesler
- * @version 1.1.0
+ * @version 1.1.1
  *
  * @id jQuery.rule
  * @param {Undefined|String|jQuery.Rule} The rules, can be a selector, or literal CSS rules. Many can be given, comma separated.
@@ -283,7 +282,7 @@
 	$.data = mediator( $.data );
 	$.removeData = mediator( $.removeData );
 	
-	$(window).unload(function(){
+	$(window).on("unload", function () {
 		$(storage).cssRules().remove();//empty our rules bin
 	});
 		
