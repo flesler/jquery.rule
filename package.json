@@ -1,0 +1,24 @@
+{
+  "name": "jquery.rule",
+  "version": "1.1.1",
+  "description": "CSS Rules manipulation, the jQuery way",
+  "main": "jquery.rule.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flesler/jquery.rule.git"
+  },
+  "keywords": [
+    "jquery",
+    "css",
+    "rules"
+  ],
+  "author": "Ariel Flesler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flesler/jquery.rule/issues"
+  },
+  "homepage": "https://github.com/flesler/jquery.rule#readme"
+}
