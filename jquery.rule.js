@@ -84,7 +84,7 @@
 				case 'object':
 					if( ss[0] ) ss = ss[0];
 					if( ss[sheet] ) ss = ss[sheet];
-					if( ss.hasOwnProperty(rules) ) break;//only if the stylesheet is valid
+					if( rules in ss ) break;//only if the stylesheet is valid
 				default:
 					if( typeof r == 'object' ) return r;//let's not waist time, it is parsed
 					ss = storage;
