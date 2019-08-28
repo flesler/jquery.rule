@@ -2,10 +2,10 @@
  * jQuery.Rule - CSS Rules manipulation, the jQuery way.
  * Copyright (c) 2007 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
  * Dual licensed under MIT and GPL.
- * Date: 14/07/2018
+ * Date: 28/08/2019
  *
  * @author Ariel Flesler
- * @version 1.1.1
+ * @version 1.1.2
  *
  * @id jQuery.rule
  * @param {Undefined|String|jQuery.Rule} The rules, can be a selector, or literal CSS rules. Many can be given, comma separated.
@@ -197,7 +197,7 @@
 			return $rule.outerText(this[0]);
 		}
 	};
-	
+
 	$.each({
 		ownerNode:owner,//when having the stylesheet, get the node that contains it
 		sheet:sheet, //get the stylesheet from the node
@@ -227,13 +227,13 @@
 			});
 		};
 	});
-	
+
 	$.fn.cssText = function(){
 		return this.filter('link,style').eq(0).sheet().cssRules().map(function(){
-			return $rule.outerText(this);							   
+			return $rule.outerText(this);
 		}).get().join('\n');
 	};
-	
+
 	$.each('remove,appendTo,parent'.split(','),function( k, f ){
 		$rule.fn[f] = function(){
 			var args = $.makeArray(arguments), that = this;
@@ -244,25 +244,25 @@
 			});
 		};
 	});
-		
+
 	$.each(('each,index,get,size,eq,slice,map,attr,andSelf,css,show,hide,toggle,'+
 			'queue,dequeue,stop,animate,fadeIn,fadeOut,fadeTo').split(','),function( k, f ){
-		$rule.fn[f] = $.fn[f];																				  
+		$rule.fn[f] = $.fn[f];
 	});
-	
+
 	// this function has been pulled in from jQuery 1.4.1, because it is an internal function and has been dropped as of 1.4.2
-	function setArray(rule, elems) { 
+	function setArray(rule, elems) {
 		rule.length = 0;
 		Array.prototype.push.apply( rule, elems );
 	}
-	
+
 	var curCSS = $.curCSS;
 	$.curCSS = function( e, a ){//this hack is still quite exprimental
 		return ('selectorText' in e ) ?
 			e.style[a] || $.prop( e, a=='opacity'? 1 : 0,'curCSS', 0, a )//TODO: improve these defaults
 		: curCSS.apply(this,arguments);
 	};
-	
+
 	/**
 	 * Time to hack jQuery.data for animations.
 	 * Only IE really needs this, but to keep the behavior consistent, I'll hack it for all browsers.
@@ -276,14 +276,14 @@
 			var id = elm.selectorText;
 			if( id )
 				arguments[0] = $rule.cache[id] = $rule.cache[id] || {};
-			return original.apply( $, arguments );	
+			return original.apply( $, arguments );
 		};
 	};
 	$.data = mediator( $.data );
 	$.removeData = mediator( $.removeData );
-	
+
 	$(window).on("unload", function () {
 		$(storage).cssRules().remove();//empty our rules bin
 	});
-		
+
 })( jQuery );

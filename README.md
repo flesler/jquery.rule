@@ -2,60 +2,38 @@
 CSS Rules manipulation, the jQuery way.
 
 # Usage
-Check [API.txt](API.txt).
+These are the methods, the plugin adds to the different namespaces.
 
-Requires jQuery >= 1.2.
+## jQuery.fn
+- sheet: returns the stylesheets from the matched styles and links.
+- cssRules: return all the rules from all the given sheets.
+- ownerNode: returns the nodes that belong to the given sheet (opposite to sheets).
+- cssText: returns the text of the first matched style/link.
 
-# Changelog
-1.1.1
-<br /> [Fix]
-- Made compatible with jquery 3.0+.
-- Added NPM manifest.
+## jQuery.rule
+- constructor( $.rule ):
+  - 1st argument: nothing, a rule filter, rule literal, css rule or array of rules.
+  - 2nd argument: nothing, node filter for link/style, nodes link/style.
+- sheets: returns the sheets that match the selector or all of them if none.
+- clean: converts a rule literal, to array of rules.
+- parent: returns the parent of a rule, neccesary for IE.
+- outerText: return the selector with the rules of the given rule.
+- text: gets/sets the cssText of the rule.
 
-1.1.0
-<br /> [Fix]
-- Fix for FireFox "SecurityError: The operation is insecure." if an external CSS ref is present. Thanks for @dorival for the PR
+## jQuery.rule.fn
+- append: will add one or more styles in the form of "attr:value; attr:value" to the matched rules.
+- css : sets a value to all matched rules.
+- outerText: return $.rule.outerText of the first rule.
+- text: sets the cssText of the rules, or gets the cssText from the first one.
+- appendTo: appends the matched rules to the specified stylesheet(1), can be a selector, dom element, sheet.
 
-1.0.1
-<br /> [Fix]
-- Small fix for Opera 9.55. The \<style\> created demanded a closing slash.
-- Fixed the exclusion of $.rule's sheet in $.rule.sheets(). Thanks to Adrien Gibrat for noticing.
-- Literal rules were split by ','. That would break comma-separated selectors. Reported by Adrien Gibrat.
-  - Note that IE doesn't support comma-separated selectors in the addRule method. This could be worked around but would cause different results among browsers, so just now that it fails in IE and it should not be used.
+All these methods ( from jQuery.rule.fn ) are equal (or very similar) to those in jQuery.fn, but for CSS Rules.
+	add, andSelf, animate, appendTo, attr, css, dequeue,
+	each, end, eq, fadeIn, fadeOut, fadeTo, filter, get,
+	hide, index, is, map, not, pushStack, queue, remove,
+	setArray, show, size, slice, stop, toggle.
 
-[Optimization]
-- Added a cleanup of the local storage on window.unload
-
-[Docs]
-- Added some notes to the source file (jquery.rule.js).
-
-1.0
-- Added semicolon to the start, for safe file concatenation
-- Minor changes for perfomance
-- Saved $.rule in a variable to make compressed code much shorter.
-- Replaced the 'x:y' for IE when creating empty rules for ';'.
-- Made many changes tp $.rule.fn.filter:
-   * The filtering function used to get element & index as arguments instead of element as 'this' and index as 1st argument.
-   * String filters are no longer turned into regex, now they are compared (case insensitive) to each (splitted by comma) selector.
-- $.data and $.removeData have been extended ( hacked :) ). Instead of the element(rule), they get an empty hash, stored in $.rule.cache.
-- The changes in $.data allow cross browser animations. They need some aggressive testing.
-- Added show/hide/toggle and slide functions to $.rule.fn.
-- Improved the hack to $.curCSS, it returns some default values in case none is set, for animations. It needs some more work.
-
-0.9.2
-- Added queue,dequeue,animate and stop to $.rule.fn (non-IE)
-- Hacked $.curCSS to make the animations work.
-- remove() works in Opera 9 and Safari Win!
-  - Opera needed 'alternate' in the rel of stylesheet
-  - Safari wanted the sheet to be disabled, not the node.
-- $.rule.fn.filter now supports a regex as filter.
-
-0.9
-- Made the code work faster.
-- Extended $.fn with ownerNode,sheet,cssRules and cssText.
-- Added text and outerText to $.rule and $.rule.fn.
-- Made the example nicer.
-- Removed $.fn.collect.
+Some calls to show and hide behave unexpectedly sometimes. Some styles and animations might fail, please report it.
 
 # License
 The MIT License. Check 'License'.

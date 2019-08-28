@@ -1,6 +1,6 @@
 {
   "name": "jquery.rule",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "CSS Rules manipulation, the jQuery way",
   "main": "jquery.rule.js",
   "scripts": {
